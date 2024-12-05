@@ -1,0 +1,29 @@
+- connecter le port 8000 avec docker:
+	docker run --name apache -d -p 8000:80 httpd
+- connecter le port 8000 avec docker puis ouvrir un fichier avec:(VOLUMES)
+	docker run --name apache -d -p 8000:80 -v ~/devops/html:/usr/local/apache2/htdocs:r httpd
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+MISE EN PRATIQUE - PARTIE DOCKER
+- Creation du reseau
+	docker network create nextcloud_network
+- Creation du container mariadb
+	docker run --name mariadb --network nextcloud_network -e MYSQL_ROOT_PASSWORD=rootpassword -d mariadb
+- Creation du container NextCloud
+	docker run --name nextcloud --network nextcloud_network -p 8000:80 -d nextcloud
+	
+	
+	
+----------------------------------------------------------------------------------------------------------------------------------------
+MISE EN PRATIQUE POUR LA CREATION DES L'IMAGE
+
+-Creation d'un fichier Dockerfile (qui doit etre a la racine)
+
+- creation de l'image:
+	docker build -t mon-nginx:latest .
+- lancement du container
+	docker run -p 8080:80 mon-nginx:latest
+	
+Normalement Apres ça normalement si tu essaye d'acceder au port 8080 tu vois le fichier index.html
+

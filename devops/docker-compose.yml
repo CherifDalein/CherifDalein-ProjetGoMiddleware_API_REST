@@ -1,0 +1,24 @@
+version: '3.4'
+services:
+  mariadb:
+    image: mariadb:latest
+    networks:
+      - nextcloud
+    environment:
+      MARIADB_ROOT_PASSWORD: azerty12345
+    volumes:
+    - ./mariadb:/var/lib/mysql
+  nextcloud:
+    image: nextcloud:latest
+    networks:
+      - nextcloud
+    depends_on:
+      - mariadb
+    volumes:
+    - ./nextcloud:/var/www/html
+    ports:
+    - '80:80'
+
+networks:
+  nextcloud:
+    driver: bridge

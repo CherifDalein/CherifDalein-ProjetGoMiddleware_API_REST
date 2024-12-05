@@ -1,0 +1,16 @@
+Host bastion
+    Hostname v4.edu.forestier.re
+    Port 22
+    User madiallo
+    StrictHostKeyChecking=no
+    UserKnownHostsFile=/dev/null
+    LogLevel ERROR
+
+Host * !bastion
+    ProxyJump bastion
+    Port 22
+    IdentityFile ~/CLeSSH.txt
+    User debian
+    StrictHostKeyChecking=no
+    UserKnownHostsFile=/dev/null  
+    LogLevel ERROR
